@@ -1,0 +1,33 @@
+package com.shoppingList.resources.exceptions;
+
+import java.util.Date;
+
+public class ResourceError {
+	private String error;
+	private Date timestamp;
+	
+	public ResourceError() {
+		super()
+	}
+	
+	public ResourceError(String error, Date timestamp) {
+		super();
+		this.error = error;
+		this.timestamp = timestamp;
+	}
+	
+	public String getError() {
+		return error;
+	}
+	public void setError(String error) {
+		this.error = error;
+	}
+	public Date getTimestamp() {
+		return timestamp;
+	}
+	public void setTimestamp(Date timestamp) {
+		this.timestamp = timestamp;
+	}
+	
+	
+}

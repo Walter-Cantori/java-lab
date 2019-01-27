@@ -1,0 +1,65 @@
+package com.shoppingList.service;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.shoppingList.DTO.UserEditDTO;
+import com.shoppingList.domain.User;
+import com.shoppingList.repository.UserRepository;
+import com.shoppingList.service.exceptions.UserNotFoundException;
+
+@Service
+public class UserService {
+	
+	@Autowired
+	private UserRepository repo;
+	
+	private User findUserById(Integer id) {
+		Optional<User> user = repo.findById(id);
+		return user.orElseThrow(() -> new UserNotFoundException("User not found with id: " + id));
+	}
+	
+	public List<User> getAll() {
+		return repo.findAll();
+	}
+	
+	public User getOne(Integer id) {
+		User user = findUserById(id);
+		return user;
+	}
+	
+	public User create(User user) {
+		return repo.save(user);
+	}
+	
+	public User edit(Integer id, UserEditDTO newUserData) {
+		User user = findUserById(id);
+		
+		if (user != null) {
+			user.setName(newUserData.getName() != null ? newUserData.getName() : user.getName());
+			user.setEmail(newUserData.getEmail() != null ? newUserData.getEmail() : user.getEmail());
+			
+			if(newUserData.getPassword() != null && newUserData.getOldPassword() != null) {
+				if (newUserData.getOldPassword().equals(user.getPassword())) {
+					user.setPassword(newUserData.getPassword());
+				} else {
+					return null;
+				}
+			}
+			return repo.save(user);
+			
+		} else {
+			return null;
+		}
+		
+	}
+	
+	public void destroy(Integer id) {
+		findUserById(id);
+		repo.deleteById(id);
+	}
+	
+}

@@ -1,0 +1,5 @@
+package com.shoppingList.config;
+
+public class SecurityConfig {
+
+}

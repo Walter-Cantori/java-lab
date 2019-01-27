@@ -1,0 +1,20 @@
+package com.shoppingList.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.shoppingList.domain.User;
+import com.shoppingList.repository.UserRepository;
+
+@Service
+public class UserService {
+	
+	@Autowired
+	private UserRepository repo;
+	
+	public List<User> get() {
+		return repo.findAll();
+	}
+}

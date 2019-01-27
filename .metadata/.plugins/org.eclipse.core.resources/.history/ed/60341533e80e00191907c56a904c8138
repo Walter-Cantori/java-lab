@@ -1,0 +1,56 @@
+package com.shoppingList.resources;
+
+import java.util.List;
+
+import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.shoppingList.DTO.UserEditDTO;
+import com.shoppingList.domain.Product;
+import com.shoppingList.domain.User;
+import com.shoppingList.service.UserService;
+
+@RestController
+@RequestMapping(value="/products")
+public class ProductResource {
+	
+	@Autowired
+	private ProductService productService;
+	
+	@RequestMapping(method=RequestMethod.GET)
+	public ResponseEntity<List<Product>> getAll(){
+		List<Product> products = productService.getAll();
+		return ResponseEntity.ok().body(products);
+	}
+	
+	@RequestMapping(value="/{id}", method=RequestMethod.GET)
+	public ResponseEntity<Product> getOne(@PathVariable Integer id){
+		Product product = productService.getOne(id);
+		return ResponseEntity.ok().body(product);
+	}
+	
+	@RequestMapping(method=RequestMethod.POST)
+	public ResponseEntity<Product> create(@Valid @RequestBody Product product){
+		Product createdProduct = productService.create(product);
+		return ResponseEntity.ok().body(createdProduct);
+	}
+	
+	@RequestMapping(value="/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<Product> edit(@PathVariable Integer id, @Valid @RequestBody Product product){
+		Product editedproduct = productService.edit(id, product);
+		return ResponseEntity.ok().body(editedproduct);
+	}
+	
+	@RequestMapping(value="/{id}", method = RequestMethod.DELETE)
+	public ResponseEntity<Product> destroy(@PathVariable Integer id) {
+		productService.destroy(id);
+		return ResponseEntity.ok().build();
+	}
+}

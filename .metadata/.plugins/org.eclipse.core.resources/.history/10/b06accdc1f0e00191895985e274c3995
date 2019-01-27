@@ -1,0 +1,44 @@
+package com.shoppingList.domain;
+
+import java.io.Serializable;
+
+public class ListItem implements Serializable {
+	private static final long serialVersionUID = 1L;
+
+	private Integer id;
+	private double price;
+	private Integer quantity;
+	
+	public ListItem() {
+		super();
+	}
+	
+	public ListItem(Integer id, double price, Integer quantity) {
+		super();
+		this.id = id;
+		this.price = price;
+		this.quantity = quantity;
+	}
+	
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public double getPrice() {
+		return price;
+	}
+	public void setPrice(double price) {
+		this.price = price;
+	}
+	public Integer getQuantity() {
+		return quantity;
+	}
+	public void setQuantity(Integer quantity) {
+		this.quantity = quantity;
+	}
+	
+	
+	
+}

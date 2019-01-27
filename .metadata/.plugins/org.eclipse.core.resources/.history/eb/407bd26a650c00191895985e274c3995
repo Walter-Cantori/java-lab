@@ -1,0 +1,43 @@
+package com.shoppingList.domain;
+
+import java.io.Serializable;
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
+public class List implements Serializable{
+	private static final long serialVersionUID = 1L;
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
+	private String name;
+	
+	@Column(name = "created_at")
+	private Date createdAt;
+	
+	@Column(name = "modified_at")
+	private Date modifiedAt;
+	
+	private User user;
+	
+	public List() {
+		
+	}
+
+	public List(Integer id, String name, Date createdAt, Date modifiedAt, User user) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.createdAt = createdAt;
+		this.modifiedAt = modifiedAt;
+		this.user = user;
+	}
+
+	
+}

@@ -1,0 +1,23 @@
+package com.shoppingList.service;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.stereotype.Service;
+
+import com.shoppingList.domain.ShoppingList;
+import com.shoppingList.repository.ShoppingListRepository;
+
+@Service
+public class ShoppingListService {
+	private ShoppingListRepository shoppingListRepository;
+	
+	public List<ShoppingList> get() {
+		return shoppingListRepository.findAll();
+	}
+	
+	public ShoppingList get(Integer id) {
+		Optional<ShoppingList> list = shoppingListRepository.findById(id);
+		return list.orElse(null);
+	}
+}

@@ -1,0 +1,5 @@
+package com.shoppingList.security;
+
+public class JWTUtil {
+
+}

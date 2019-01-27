@@ -1,0 +1,56 @@
+package com.shoppingList.service;
+
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.shoppingList.domain.ListItem;
+import com.shoppingList.domain.ShoppingList;
+import com.shoppingList.repository.ListItemRepository;
+import com.shoppingList.service.exceptions.ResourceNotFoundException;
+
+@Service
+public class ListItemService {
+	@Autowired
+	private ListItemRepository listItemRepository;
+	
+	@Autowired
+	private ShoppingListService shoppingListService;
+	
+	
+	private ListItem findItemById(Integer id) {
+		Optional<ListItem> item = listItemRepository.findById(id);
+		return item.orElseThrow(() -> new ResourceNotFoundException("Item not found with id: " + id));
+	}
+	
+	public List<ListItem> getAll(Integer list_id) {
+		ShoppingList list = shoppingListService.getOne(list_id);
+		return listItemRepository.findByList(list);
+	}
+	
+	public ListItem getOne(Integer list_id, Integer id) {
+		return findItemById(id);
+	}
+	
+	public ListItem create(Integer list_id, ListItem item) {
+		item.setId(null);
+		ShoppingList list = shoppingListService.getOne(list_id);
+		item.setList(list);
+		return listItemRepository.save(item);
+	}
+	
+	public ListItem edit(Integer id, ListItem newItemData) {
+		ShoppingList list = findListById(id);
+		list.setModifiedAt(new Date());
+		list.setName(newListData.getName() != null ? newListData.getName() : list.getName());
+		return shoppingListRepository.save(list);
+	}
+	
+	public void destroy(Integer id) {
+		findListById(id);
+		shoppingListRepository.deleteById(id);
+	}
+}

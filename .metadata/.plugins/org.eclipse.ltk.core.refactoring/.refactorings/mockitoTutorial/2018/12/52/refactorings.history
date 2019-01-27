@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename package &apos;com.mockitoTutorial.example.mockitoTutorial&apos; to &apos;com.mockitoTutorial.example&apos;&#x0A;- Original project: &apos;mockitoTutorial&apos;&#x0A;- Original element: &apos;mockitoTutorial/src/main/java/com.mockitoTutorial.example.mockitoTutorial&apos;&#x0A;- Renamed element: &apos;mockitoTutorial/src/main/java/com.mockitoTutorial.example&apos;&#x0A;- Update references to refactored element&#x0A;- Update textual occurrences in comments and strings" description="Rename package &apos;com.mockitoTutorial.example.mockitoTutorial&apos;" flags="589830" hierarchical="false" id="org.eclipse.jdt.ui.rename.package" input="/src\/main\/java&lt;com.mockitoTutorial.example.mockitoTutorial" name="com.mockitoTutorial.example" qualified="false" references="true" stamp="1545951503135" textual="false" version="1.0"/>
+</session>

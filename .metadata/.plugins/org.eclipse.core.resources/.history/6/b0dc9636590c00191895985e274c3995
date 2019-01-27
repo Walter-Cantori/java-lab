@@ -1,0 +1,11 @@
+package com.shoppingList.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import com.shoppingList.domain.User;
+
+@Repository
+public class UserRepository extends JpaRepository<User, Integer>{
+
+}

@@ -1,0 +1,5 @@
+package com.shoppingList.repository;
+
+public interface ListItemRepository {
+
+}

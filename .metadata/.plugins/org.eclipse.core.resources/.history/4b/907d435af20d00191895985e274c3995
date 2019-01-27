@@ -1,0 +1,40 @@
+package com.shoppingList.service;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.shoppingList.domain.User;
+import com.shoppingList.repository.UserRepository;
+
+@Service
+public class UserService {
+	
+	@Autowired
+	private UserRepository repo;
+	
+	public List<User> get() {
+		return repo.findAll();
+	}
+	
+	public User get(Integer id) {
+		Optional<User> user = repo.findById(id);
+		return user.orElse(null);
+	}
+	
+	public User create(User user) {
+		return repo.save(user);
+	}
+	
+	public User edit(Integer id, User newUserData) {
+		User user = repo.findById(id).orElse(null);
+		
+		if (user != null) {
+			user.setName(newUserData.getName() != null ? newUserData.getName() : user.getName());
+		}
+		
+	}
+	
+}

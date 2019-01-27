@@ -1,0 +1,49 @@
+package com.shoppingList.service;
+
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.shoppingList.domain.ShoppingList;
+import com.shoppingList.domain.User;
+import com.shoppingList.repository.ShoppingListRepository;
+import com.shoppingList.repository.UserRepository;
+import com.shoppingList.service.exceptions.ResourceNotFoundException;
+
+@Service
+public class ShoppingListService {
+	
+	@Autowired
+	private ShoppingListRepository shoppingListRepository;
+	
+	@Autowired
+	private UserService userService;
+	
+	@Autowired
+	private UserRepository userRepository;
+	
+	private ShoppingList findListById(Integer id) {
+		Optional<ShoppingList> list = shoppingListRepository.findById(id);
+		return list.orElseThrow(() -> new ResourceNotFoundException("List not found with id: " + id));
+	}
+	
+	public List<ShoppingList> getAll() {
+		return shoppingListRepository.findAll();
+	}
+	
+	public ShoppingList getOne(Integer id) {
+		Optional<ShoppingList> list = shoppingListRepository.findById(id);
+		return list.orElse(null);
+	}
+	
+	public ShoppingList create(ShoppingList list) {
+		list.setId(null);
+		list.setCreatedAt(new Date());
+		Optional <User> user = userRepository.findById(list.getUser().getId());
+		list.setUser(user.orElse(null));
+		return shoppingListRepository.save(list);
+	}
+}

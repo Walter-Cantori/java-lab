@@ -1,0 +1,10 @@
+package com.shoppingList.service;
+
+import org.springframework.stereotype.Service;
+
+import com.shoppingList.repository.ShoppingListRepository;
+
+@Service
+public class ShoppingListService {
+	private ShoppingListRepository shoppinglistRepository;
+}

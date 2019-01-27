@@ -1,0 +1,48 @@
+package com.shoppingList.resources;
+
+import java.util.List;
+
+import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.shoppingList.domain.ShoppingList;
+import com.shoppingList.service.ShoppingListService;
+
+@RestController
+@RequestMapping(value="/lists")
+public class ShoppingListResource {
+
+	@Autowired
+	private ShoppingListService shoppingListService;
+	
+	@RequestMapping(method=RequestMethod.GET)
+	public ResponseEntity<List<ShoppingList>> getAll(){
+		List<ShoppingList> lists = shoppingListService.getAll();
+		return ResponseEntity.ok().body(lists);
+	}
+	
+	@RequestMapping(value="/{id}", method=RequestMethod.GET)
+	public ResponseEntity<ShoppingList> getOne(@PathVariable Integer id){
+		ShoppingList list = shoppingListService.getOne(id);
+		return ResponseEntity.ok().body(list);
+	}
+	
+	@RequestMapping(method=RequestMethod.POST)
+	public ResponseEntity<ShoppingList> create(@Valid @RequestBody ShoppingList list){
+		ShoppingList createdList = shoppingListService.create(list);
+		return ResponseEntity.ok().body(createdList);
+	}
+	
+	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
+	public ResponseEntity<ShoppingList> edit(@PathVariable Integer id, @Valid @RequestBody ShoppingList list){
+		ShoppingList createdList = shoppingListService.edit(list);
+		return ResponseEntity.ok().body(createdList);
+	}
+}

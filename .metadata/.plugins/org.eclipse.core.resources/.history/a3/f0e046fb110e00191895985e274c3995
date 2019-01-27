@@ -1,0 +1,40 @@
+package com.shoppingList.service;
+
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.shoppingList.domain.ShoppingList;
+import com.shoppingList.domain.User;
+import com.shoppingList.repository.ShoppingListRepository;
+import com.shoppingList.repository.UserRepository;
+
+@Service
+public class ShoppingListService {
+	
+	@Autowired
+	private ShoppingListRepository shoppingListRepository;
+	
+	@Autowired
+	private UserRepository userRepository;
+	
+	public List<ShoppingList> get() {
+		return shoppingListRepository.findAll();
+	}
+	
+	public ShoppingList get(Integer id) {
+		Optional<ShoppingList> list = shoppingListRepository.findById(id);
+		return list.orElse(null);
+	}
+	
+	public ShoppingList create(ShoppingList list) {
+		list.setId(null);
+		list.setCreatedAt(new Date());
+		Optional <User> user = userRepository.findById(list.getUser().getId());
+		list.setUser(user.orElse(null));
+		return shoppingListRepository.save(list);
+	}
+}

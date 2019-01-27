@@ -1,0 +1,2 @@
+INDEX VERSION 1.131+/Users/wrlc/dev/playground/workspace-spring/.metadata/.plugins/org.eclipse.jdt.core
+1487440987.index

@@ -1,0 +1,111 @@
+package com.shoppingList.domain;
+
+import java.io.Serializable;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
+@Entity
+public class ListItem implements Serializable {
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
+	
+	private double price;
+	
+	@NotNull(message= "Required field")
+	@Min(value = 1)
+	private Integer quantity;
+	
+	@JsonBackReference
+	@ManyToOne
+	@JoinColumn(name = "list_id")
+	private ShoppingList list;
+	
+	@ManyToOne
+	@JoinColumn(name = "product_id")
+	private Product product;
+	
+	public ListItem() {
+		super();
+	}
+	
+	public ListItem(Integer id, double price, Integer quantity) {
+		super();
+		this.id = id;
+		this.price = price;
+		this.quantity = quantity;
+	}
+	
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public double getPrice() {
+		return price;
+	}
+	public void setPrice(double price) {
+		this.price = price;
+	}
+	public Integer getQuantity() {
+		return quantity;
+	}
+	public void setQuantity(Integer quantity) {
+		this.quantity = quantity;
+	}
+
+	public ShoppingList getList() {
+		return list;
+	}
+
+	public void setList(ShoppingList list) {
+		this.list = list;
+	}
+	
+
+	public Product getProduct() {
+		return product;
+	}
+
+	public void setProduct(Product product) {
+		this.product = product;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ListItem other = (ListItem) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
+	}
+	
+}

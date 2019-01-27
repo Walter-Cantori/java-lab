@@ -1,0 +1,48 @@
+package com.shoppingList.resources.exceptions;
+
+import javax.validation.ConstraintViolationException;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
+
+import com.shoppingList.service.exceptions.UserNotFoundException;
+import com.shoppingList.service.exceptions.WrongPasswordException;
+
+@ControllerAdvice
+public class ResourceExceptionHandler {
+	@ResponseBody
+	@ExceptionHandler(UserNotFoundException.class)
+	@ResponseStatus(HttpStatus.NOT_FOUND)
+	public ResourceError userNotFoundExceptionHandler(UserNotFoundException ex) {
+		ResourceError response = new ResourceError(ex.getMessage(), System.currentTimeMillis());
+		return response;
+	}
+	
+	@ResponseBody
+	@ExceptionHandler(WrongPasswordException.class)
+	@ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
+	public ResourceError wrongPasswordExceptionHandler(WrongPasswordException ex) {
+		ResourceError response = new ResourceError(ex.getMessage(), System.currentTimeMillis());
+		return response;
+	}
+	
+	@ResponseBody
+	@ExceptionHandler(MethodArgumentNotValidException.class)
+	@ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
+	public ResourceError methodArgumentNotValidException(MethodArgumentNotValidException ex) {
+		ResourceError response = new ResourceError(ex.getMessage(), System.currentTimeMillis());
+		return response;
+	}
+	
+	@ResponseBody
+	@ExceptionHandler(ConstraintViolationException.class)
+	@ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
+	public ResourceError constraintViolationException(ConstraintViolationException ex) {
+		ResourceError response = new ResourceError(ex.getMessage(), System.currentTimeMillis());
+		return response;
+	}
+}

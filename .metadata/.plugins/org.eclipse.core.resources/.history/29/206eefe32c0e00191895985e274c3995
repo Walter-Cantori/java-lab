@@ -1,0 +1,5 @@
+package com.shoppingList.domain;
+
+public class Product {
+
+}

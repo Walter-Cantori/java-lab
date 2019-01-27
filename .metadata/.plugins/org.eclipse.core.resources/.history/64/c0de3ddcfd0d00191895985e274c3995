@@ -1,0 +1,5 @@
+package com.shoppingList.service.exceptions;
+
+public class WrongPasswordException {
+
+}

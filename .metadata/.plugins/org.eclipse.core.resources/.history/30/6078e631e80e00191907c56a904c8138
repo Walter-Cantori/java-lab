@@ -1,0 +1,51 @@
+package com.shoppingList.service;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.shoppingList.domain.ListItem;
+import com.shoppingList.domain.Product;
+import com.shoppingList.domain.ShoppingList;
+import com.shoppingList.repository.ListItemRepository;
+import com.shoppingList.repository.ProductRepository;
+import com.shoppingList.service.exceptions.ResourceNotFoundException;
+
+@Service
+public class ProductService {
+	@Autowired
+	private ProductRepository productRepository;
+	
+	
+	private Product findProductById(Integer id) {
+		Optional<Product> product = productRepository.findById(id);
+		return product.orElseThrow(() -> new ResourceNotFoundException("Product not found with id: " + id));
+	}
+	
+	public List<Product> getAll() {
+		return productRepository.findAll();
+	}
+	
+	public Product getOne(Integer id) {
+		return findProductById(id);
+	}
+	
+	public Product create(Product product) {
+		product.setId(null);
+		return productRepository.save(product);
+	}
+	
+	public Product edit(Integer id, Product newProductData) {
+		Product product = findProductById(id);
+		product.setName(newProductData.getName() != null  ? newProductData.getName() : product.getName());
+		product.setUrl(newProductData.getUrl() != null  ? newProductData.getUrl() : product.getUrl());
+		return productRepository.save(product);
+	}
+	
+	public void destroy(Integer id) {
+		findProductById(id);
+		productRepository.deleteById(id);
+	}
+}

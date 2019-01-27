@@ -1,0 +1,5 @@
+package com.shoppingList.service;
+
+public class ShoppingListService {
+
+}

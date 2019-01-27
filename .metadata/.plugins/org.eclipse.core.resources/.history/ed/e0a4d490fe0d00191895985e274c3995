@@ -1,0 +1,5 @@
+package com.shoppingList.resources.exceptions;
+
+public class ResourceExceptionHandler {
+
+}
